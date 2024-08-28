@@ -1,0 +1,12 @@
+---
+- name: List directory contents
+  hosts: all
+  become: yes  # Utiliza escalado de privilegios si es necesario
+  tasks:
+    - name: List contents of /home/assert
+      command: ls /home/assert
+      register: ls_output
+
+    - name: Show directory contents
+      debug:
+        msg: "{{ ls_output.stdout }}"
