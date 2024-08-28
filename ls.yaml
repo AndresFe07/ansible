@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: List files in /home/assert
-      command: ls /home/assert
+      command: ls 
       register: ls_output
 
     - name: Show the result
