@@ -1,15 +1,28 @@
 ---
-- name: List directory contents
-  hosts: all
-  become: yes
-  connection: local
-  gather_facts: false
+- name: List files in /home/assert
+  hosts: localhost
+  gather_facts: no
   tasks:
-    - name: List contents of /home/assert and save to file
-      shell: ls /home/assert > /tmp/dir_contents.txt
+    - name: List files in /home/assert
+      command: ls /home/assert
+      register: ls_output
 
-    - name: Copy directory contents file to controller
-      fetch:
-        src: /tmp/dir_contents.txt
-        dest: "./dir_contents_{{ inventory_hostname }}.txt"
-        flat: yes
+    - name: Show the result
+      debug:
+        msg: "{{ ls_output.stdout }}"
+
+#---
+#- name: List directory contents
+  #hosts: all
+  #become: yes
+  #connection: local
+  #gather_facts: false
+  #tasks:
+    #- name: List contents of /home/assert and save to file
+      #shell: ls /home/assert > /tmp/dir_contents.txt
+
+    #- name: Copy directory contents file to controller
+      #fetch:
+        #src: /tmp/dir_contents.txt
+        #dest: "./dir_contents_{{ inventory_hostname }}.txt"
+        #flat: yes
