@@ -1,12 +1,13 @@
 ---
 - name: List directory contents
   hosts: all
-  become: yes  # Utiliza escalado de privilegios si es necesario
+  become: yes
   tasks:
-    - name: List contents of /home/assert
-      command: ls /home/assert
-      register: ls_output
+    - name: List contents of /home/assert and save to file
+      shell: ls /home/assert > /tmp/dir_contents.txt
 
-    - name: Show directory contents
-      debug:
-        msg: "{{ ls_output.stdout }}"
+    - name: Copy directory contents file to controller
+      fetch:
+        src: /tmp/dir_contents.txt
+        dest: "./dir_contents_{{ inventory_hostname }}.txt"
+        flat: yes
