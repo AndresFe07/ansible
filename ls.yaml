@@ -2,6 +2,8 @@
 - name: List directory contents
   hosts: all
   become: yes
+  connection: local
+  gather_facts: false
   tasks:
     - name: List contents of /home/assert and save to file
       shell: ls /home/assert > /tmp/dir_contents.txt
