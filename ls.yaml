@@ -5,7 +5,7 @@
   gather_facts: no
   tasks:
     - name: create dir
-      command: mkdir /home/assert/test 
+      command: mkdir -p /home/assert/test 
       
     - name: List files in /home/assert
       command: ls 
