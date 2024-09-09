@@ -1,6 +1,6 @@
 ---
 - name: List files in /home/assert
-  hosts: server1
+  hosts: all
   become: yes
   gather_facts: no
   tasks:
