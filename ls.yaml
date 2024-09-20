@@ -1,15 +1,28 @@
----
-- name: List files in /home/assert
-  hosts: all
-  become: yes
-  gather_facts: no
-  tasks:
-    - name: create dir
-      command: mkdir -p /home/assert/test 
+# ---
+# - name: List files in /home/assert
+#   hosts: all
+#   become: yes
+#   gather_facts: no
+#   tasks:
+#     - name: create dir
+#       command: mkdir -p /home/assert/test 
       
-    - name: List files in /home/assert
-      command: ls 
+#     - name: List files in /home/assert
+#       command: ls 
+#       register: ls_output
+
+#     - name: Show the result
+#       debug:
+#         msg: "{{ ls_output.stdout }}"
+---
+- name: Conectar con usuario 'ansible' y hacer ls en su home
+  hosts: ubuntu
+  become: false
+  tasks:
+    - name: Hacer ls en el home del usuario 'ansible'
+      command: ls /home/ansible
       register: ls_output
+      changed_when: ls_output.rc != 0 
 
     - name: Show the result
       debug:
